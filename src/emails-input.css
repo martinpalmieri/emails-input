@@ -7,6 +7,10 @@
 	box-sizing: border-box;
 	border-radius: 4px;
 	padding: 8px;
+	display: flex;
+	align-content: flex-start;
+	flex-direction: row;
+	flex-wrap: wrap;
 }
 
 .emails-input-item-input {
@@ -14,6 +18,8 @@
 	outline: none;
 	font-family: inherit;
 	font-size: 14px;
+	flex-grow: 1;
+	margin-left: auto;
 }
 
 .emails-input-item-input::placeholder {

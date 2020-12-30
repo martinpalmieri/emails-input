@@ -12,11 +12,10 @@ function EmailsInput(container, options) {
 	}
 
 	this.state = [];
+	this.container = container;
 
 	container.classList.add(this.options.containerClass);
-	this.itemsContainer = this.createItemsContainerElement();
 	this.itemInput = this.createItemInputElement();
-	container.appendChild(this.itemsContainer);
 	container.appendChild(this.itemInput);
 	container.addEventListener(
 		'click',
@@ -29,7 +28,6 @@ function EmailsInput(container, options) {
 /**
  * @options
  * @property {string}    containerClass             - The class name for the main container.
- * @property {string}    itemsContainerClassName    - The class name for the items container.
  * @property {string}    itemInputClassName         - The class name for the input.
  * @property {string}    itemClassName              - The class name for the item.
  * @property {string}    itemInvalidClassName       - The class name for the item if it's invalid.
@@ -39,20 +37,12 @@ function EmailsInput(container, options) {
  */
 EmailsInput.prototype.options = {
 	containerClass: 'emails-input-main-container',
-	itemsContainerClassName: 'emails-input-items-container',
 	itemInputClassName: 'emails-input-item-input',
 	itemClassName: 'emails-input-item',
 	itemInvalidClassName: 'emails-input-item-invalid',
 	placeholder: 'add more people...',
 	confirmKeyCodes: [13, 188],
 	regexValidator: new RegExp(/^\S+@\S+\.\S+$/),
-};
-
-EmailsInput.prototype.createItemsContainerElement = function () {
-	var itemsContainer = document.createElement('div');
-	itemsContainer.classList.add(this.options.itemsContainerClassName);
-
-	return itemsContainer;
 };
 
 EmailsInput.prototype.createItemInputElement = function () {
@@ -86,11 +76,19 @@ EmailsInput.prototype.onItemInputChange = function (event) {
 	event.preventDefault();
 };
 
+/**
+ * onItemInputBlur.
+ * @param {InputEvent} event - The event from input blur.
+ */
 EmailsInput.prototype.onItemInputBlur = function (event) {
 	this.addItem(event.target.value);
 	this.clearItemInput();
 };
 
+/**
+ * onItemInputPaste.
+ * @param {InputEvent} event - The event from input paste.
+ */
 EmailsInput.prototype.onItemInputPaste = function (event) {
 	setTimeout(
 		function () {
@@ -105,6 +103,10 @@ EmailsInput.prototype.onItemInputPaste = function (event) {
 	);
 };
 
+/**
+ * addItem.
+ * @param {string} value - The typed value as a string.
+ */
 EmailsInput.prototype.addItem = function (value) {
 	if (value === '') {
 		return false;
@@ -117,22 +119,32 @@ EmailsInput.prototype.addItem = function (value) {
 	}
 
 	var isValid = this.options.regexValidator.test(value);
-	this.itemsContainer.appendChild(this.createItemElement(value, isValid));
+	this.container.insertBefore(this.createItemElement(value, isValid), this.itemInput);
 	this.state.push({ value: value, isValid: isValid });
 
 	return true;
 };
 
+/**
+ * removeItem.
+ * @param {string} item - The item as a Node element.
+ * @param {string} value - The value of the added element.
+ */
 EmailsInput.prototype.removeItem = function (item, value) {
 	for (var i = 0; i < this.state.length; i++) {
 		if (this.state[i].value === value) {
 			this.state.splice(i, 1);
-			this.itemsContainer.removeChild(item);
+			this.container.removeChild(item);
 			return;
 		}
 	}
 };
 
+/**
+ * createItemElement.
+ * @param {string} value - The value used to create the new element as a string.
+ * @param {string} isValid - Represents validity of the element using a RegExp.
+ */
 EmailsInput.prototype.createItemElement = function (value, isValid) {
 	var item = document.createElement('div');
 	item.innerHTML = value;
