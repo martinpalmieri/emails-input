@@ -19,7 +19,8 @@
 	font-family: inherit;
 	font-size: 14px;
 	flex-grow: 1;
-	margin-left: auto;
+	line-height: 24px;
+	align-self: flex-start;
 }
 
 .emails-input-item-input::placeholder {
@@ -32,10 +33,6 @@
 	width: 0;
 }
 
-.emails-input-items-container {
-	display: inline;
-}
-
 .emails-input-item {
 	background: rgba(102, 153, 255, 0.2);
 	display: inline-block;
@@ -44,6 +41,7 @@
 	font-size: 14px;
 	line-height: 24px;
 	margin: 0 8px 4px 0;
+	align-self: flex-start;
 }
 
 .emails-input-item-invalid {
