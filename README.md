@@ -19,5 +19,5 @@ Add styles:
 Create component:
 
 ```js
-	var emailsInput = new EmailsInput(document.querySelector('#emails-input'));
+var emailsInput = new EmailsInput(document.querySelector('#emails-input'));
 ```
