@@ -4,25 +4,25 @@
 
 #### How to use
 
-Add script:
+##### Add script:
 
 ```html
 <script src="{path}/emails-input.min.js"></script>
 ```
 
-Add styles:
+##### Add styles:
 
 ```html
 <link href="{path}/emails-input.min.css" rel="stylesheet">
 ```
 
-Create component:
+##### Create component:
 
 ```js
 var emailsInput = new EmailsInput(document.querySelector('#emails-input'));
 ```
 
-Options
+##### Options
  - Extend or override the component's options
 ```js
 options = {
@@ -35,26 +35,26 @@ options = {
   regexValidator: // RegExp / validation for the email/item value
 };
 ```
-Options extend example.
-Add a new confirm key code (arrow down).
+##### Options extend example.
+ - Add a new confirm key code (arrow down).
 ```js
 var emailsInput = new EmailsInput(document.querySelector('#emails-input'), {
   confirmKeyCodes: [...EmailsInput.prototype.options.confirmKeyCodes, 40],
   });
   ```
   
-State
-Items are added as an object (`{ value: string, isValid: boolean }` to the state prop (array).
+##### State
+ - Items are added as an object (`{ value: string, isValid: boolean }` to the state prop (array).
   
-Get items example.
+##### Get items example.
 ```js
 var emailsInput = new EmailsInput(document.querySelector('#emails-input'));
 emailsInput.state; // will be an array of added items.
 ```
 
-addItem
-Method to add an item from outside emails input component
-Example
+##### addItem
+ - Method to add an item from outside emails input component
+##### Example
 ```js
 var emailsInput = new EmailsInput(document.querySelector('#emails-input'));
 emailsInput.addItem(value: string); // value prop should be a string.
